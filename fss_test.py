@@ -1,12 +1,20 @@
 from fill_sketch import FillSketch
-import pandas as pd
 import numpy as np
-from helper import get_seeds
 import math
+
+
+def get_seeds():
+    with open('seeds.txt', 'r') as file_:
+        lines = file_.readlines()
+    output_list = []
+    for line in lines:
+        output_list.append(int(line))
+    return output_list
 
 seeds = get_seeds()
 
-#  check jaccard similarity
+# Main experiment
+# Use the FillSketch class to estimate the jaccard similarity between two sets
 sketch_length = 16
 no_estimations = 10000
 array_estimations = np.empty(shape=no_estimations)
@@ -42,8 +50,8 @@ def generate_fill_sketch(input_set, sketch_length, hash_outputs):
             return sketch
     return sketch
 
-# EXPERIMENT 1
-# Random hash function is implemented by taking the number of the first index of a random permuation of 16
+# Experiment 1
+# Random hash function is implemented by taking the value associated to the first index of a random permuation of 16
 array_estimations_experiment_1 = np.empty(shape=no_estimations)
 for i in range(no_estimations):
     np.random.RandomState(seeds[i])
